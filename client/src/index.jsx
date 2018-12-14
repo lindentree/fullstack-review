@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   search (term) {
-    $.post('http://localhost:1128/repos', term)
+    $.post('http://localhost:1128/repos', {term})
     // TODO
   }
 
