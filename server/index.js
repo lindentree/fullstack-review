@@ -14,7 +14,14 @@ app.post('/repos', function (req, res) {
   // and get the repo information from the github API, then
   // save the repo information in the database
  
-  getRepos.getReposByUsername(req.body.term);
+  getRepos.getReposByUsername(req.body.term, function(data) {
+  	var test = [];
+  	JSON.parse(data).forEach(element => {
+      test.push(element.name)
+  	})
+
+  	console.log('test', test)
+  });
   
   res.sendStatus(201);
 });
