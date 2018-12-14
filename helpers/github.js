@@ -7,8 +7,8 @@ let getReposByUsername = (url) => {
 
   // The options object has been provided to help you out, 
   // but you'll have to fill in the URL
-  const githubUrl = 'https://github.com/'
-  const fullURL = githubUrl + url;
+  const githubUrl = 'https://api.github.com/users/'
+  const fullURL = githubUrl + url + '/repos';
 
   let options = {
     url: null,
@@ -20,7 +20,12 @@ let getReposByUsername = (url) => {
 
   options.url = fullURL;
   
-  return request.get(options);
+  request.get(options, function(error, response, body){
+     console.log('error', error);
+     console.log('body', body);
+
+
+  });
 }
 
 module.exports.getReposByUsername = getReposByUsername;
