@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 let app = express();
 const getRepos = require('../helpers/github.js')
+const db = require ('../database/index.js')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -15,12 +16,18 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
  
   getRepos.getReposByUsername(req.body.term, function(data) {
-  	var test = [];
+  	var storage = []
+  	
   	JSON.parse(data).forEach(element => {
-      test.push(element.name)
+  	  var test = {};
+      test['id'] = element.id
+      test['user'] = element.owner.login
+      test['repo_name'] =  element.name
+      test['url'] = element.html_url
+      storage.push(test);
   	})
 
-  	console.log('test', test)
+  	console.log('storage', storage)
   });
   
   res.sendStatus(201);
