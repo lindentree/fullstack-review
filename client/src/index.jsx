@@ -11,13 +11,20 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
+   
+   this.getInfo = this.getInfo.bind(this);
+  }
+  
+
+  componentDidMount() {
+    this.getInfo();
 
   }
 
   getInfo () {
     axios.get('http://localhost:1128/repos')
     .then(response => {
-      console.log(response)
+      this.setState({repos: response.data})
     })
 
   }
@@ -29,7 +36,7 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      {this.getInfo()}
+      
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
