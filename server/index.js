@@ -24,10 +24,24 @@ app.post('/repos', function (req, res) {
       test['user'] = element.owner.login
       test['repo_name'] =  element.name
       test['url'] = element.html_url
+      test['date_created'] = element.created_at
       storage.push(test);
   	})
 
-  	console.log('storage', storage)
+  	var uniqueRepos = {};
+  	var distinct = [];
+
+  	  for (var i = 0; i< storage.length; i++) {//filter repo function
+  	  	if( typeof(uniqueRepos[storage[i].repo_name]) === "undefined"){
+          distinct.push(storage[i]);
+  	    }
+  	  }
+
+  	distinct.forEach(function(repos) {
+      db.save(repos);
+  	})
+
+  	console.log('distinct', distinct)
   });
   
   res.sendStatus(201);
