@@ -44,9 +44,12 @@ app.get('/repos', function (req, res) {
   // test = JSON.stringify(test);
   db.retrieve(data => {
     var test = [];
+    
     data.forEach(item => {
       test.push(item._doc)
     })
+
+    test = test.slice(-25)
     res.send(JSON.stringify(test));
   })
 });
