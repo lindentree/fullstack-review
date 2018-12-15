@@ -28,20 +28,10 @@ app.post('/repos', function (req, res) {
       storage.push(test);
   	})
 
-  	var uniqueRepos = {};
-  	var distinct = [];
-
-  	  for (var i = 0; i< storage.length; i++) {//filter repo function
-  	  	if( typeof(uniqueRepos[storage[i].repo_name]) === "undefined"){
-          distinct.push(storage[i]);
-  	    }
-  	  }
-
-  	distinct.forEach(function(repos) {
+  	storage.forEach(function(repos) {
       db.save(repos);
   	})
 
-  	console.log('distinct', distinct)
   });
   
   res.sendStatus(201);
@@ -50,6 +40,7 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  res.sendStatus(200);
 });
 
 let port = 1128;

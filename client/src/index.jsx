@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,14 @@ class App extends React.Component {
 
   }
 
+  getInfo () {
+    axios.get('http://localhost:1128/repos')
+    .then(response => {
+      console.log(response)
+    })
+
+  }
+
   search (term) {
     $.post('http://localhost:1128/repos', {term})
     // TODO
@@ -20,6 +29,7 @@ class App extends React.Component {
 
   render () {
     return (<div>
+      {this.getInfo()}
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
