@@ -5,9 +5,10 @@ const RepoList = (props) => (
     <h4> Repo List </h4>
     There are {props.repos.length} repos. 
     
-    <div>
+    <div className="container">
       {props.repos.map((repo, index) =>
-        <span key={index}> {repo.url}
+        <span key={index}> 
+        {repo.user}: <a href={repo.url}> {repo.repo_name} </a>
         </span>
       )} 
     </div>
